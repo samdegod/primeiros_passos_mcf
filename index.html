@@ -3,1033 +3,487 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proposta — Primeiros Passos na Modelagem e Costura Sob Medida</title>
+<title>Primeiros Passos MCF — Proposta de Curso</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --rose:       #C07B84;
-    --rose-dk:    #8B4F58;
-    --rose-lt:    #F5E8EA;
-    --rose-mid:   #E8C4C8;
-    --blush:      #FAF0F1;
-    --nude:       #F7EDE5;
-    --ink:        #1E1414;
-    --ink-lt:     #4A3035;
-    --muted:      #9A7C80;
-    --gold:       #C9A46A;
-    --cream:      #FFFAF8;
-    --serif:      'Playfair Display', Georgia, serif;
-    --sans:       'Lato', sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--cream);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.7;
-  }
-
-  /* ── COVER ── */
-  .cover {
-    min-height: 100vh;
-    background: var(--rose-dk);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cover-left {
-    padding: 80px 60px 80px 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    z-index: 2;
-  }
-
-  .cover-right {
-    background: var(--rose);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cover-right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 120% 80% at 80% 50%, rgba(255,255,255,0.06) 0%, transparent 70%);
-  }
-
-  /* Decorative circles */
-  .deco-circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-
-  .cover-tag {
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 32px;
-  }
-
-  .cover-pretitle {
-    font-family: var(--serif);
-    font-size: 15px;
-    font-style: italic;
-    color: rgba(255,255,255,0.55);
-    margin-bottom: 16px;
-  }
-
-  .cover-title {
-    font-family: var(--serif);
-    font-size: clamp(38px, 5vw, 60px);
-    font-weight: 700;
-    color: white;
-    line-height: 1.08;
-    margin-bottom: 8px;
-  }
-
-  .cover-title em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--rose-mid);
-  }
-
-  .cover-subtitle {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 400;
-    font-style: italic;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 48px;
-    margin-top: 12px;
-  }
-
-  .cover-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .cover-meta span {
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.04em;
-  }
-
-  .cover-meta strong {
-    color: rgba(255,255,255,0.75);
-    font-weight: 700;
-  }
-
-  /* Right side visual */
-  .cover-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    padding: 60px 40px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .stat-big {
-    text-align: center;
-    padding: 28px 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
-    width: 100%;
-  }
-  .stat-big:last-child { border-bottom: none; }
-
-  .stat-big .val {
-    font-family: var(--serif);
-    font-size: 48px;
-    font-weight: 700;
-    color: white;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-big .lbl {
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  /* ── SECTIONS ── */
-  section {
-    padding: 96px 80px;
-  }
-
-  section:nth-child(even) {
-    background: var(--blush);
-  }
-
-  .section-tag {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.15;
-    margin-bottom: 8px;
-  }
-
-  .section-title em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--rose);
-  }
-
-  .section-lead {
-    font-size: 17px;
-    color: var(--ink-lt);
-    max-width: 640px;
-    line-height: 1.75;
-    margin-bottom: 56px;
-  }
-
-  .divider-rose {
-    width: 48px;
-    height: 3px;
-    background: var(--rose);
-    margin: 20px 0 40px;
-    border-radius: 2px;
-  }
-
-  /* ── PROMISE BLOCK ── */
-  .promise-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    margin-bottom: 64px;
-  }
-
-  .promise-card {
-    background: white;
-    padding: 40px 32px;
-    position: relative;
-  }
-
-  .promise-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--rose-mid);
-  }
-
-  .promise-card.highlight::before {
-    background: var(--rose);
-  }
-
-  .promise-num {
-    font-family: var(--serif);
-    font-size: 52px;
-    font-weight: 700;
-    color: var(--rose-mid);
-    line-height: 1;
-    margin-bottom: 12px;
-  }
-
-  .promise-card.highlight .promise-num {
-    color: var(--rose);
-  }
-
-  .promise-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
-  .promise-desc {
-    font-size: 15px;
-    color: var(--ink-lt);
-    line-height: 1.65;
-  }
-
-  /* ── JOURNEY ── */
-  .journey-track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-bottom: 64px;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .journey-phase {
-    padding: 32px 28px;
-    position: relative;
-  }
-
-  .journey-phase::after {
-    content: '→';
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: rgba(255,255,255,0.4);
-    z-index: 2;
-  }
-
-  .journey-phase:last-child::after { display: none; }
-
-  .journey-phase.p1 { background: var(--rose-dk); }
-  .journey-phase.p2 { background: var(--rose); }
-  .journey-phase.p3 { background: #C99CA0; }
-  .journey-phase.p4 { background: var(--gold); }
-
-  .journey-num {
-    font-family: var(--serif);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 10px;
-  }
-
-  .journey-name {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 8px;
-    line-height: 1.2;
-  }
-
-  .journey-desc {
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.55;
-  }
-
-  /* ── MODULES ── */
-  .modules-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  .module-card {
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid var(--rose-mid);
-  }
-
-  .module-header {
-    padding: 24px 28px 20px;
-    border-bottom: 1px solid var(--rose-lt);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .module-tag {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .module-tag.base { background: var(--nude); color: var(--ink-lt); }
-  .module-tag.fase1 { background: var(--rose-lt); color: var(--rose-dk); }
-  .module-tag.fase2 { background: #E8F3EB; color: #2D6B3C; }
-  .module-tag.fase3 { background: #FDF4E4; color: #7A5320; }
-  .module-tag.bonus { background: #EDE8F8; color: #4A3080; }
-
-  .module-name {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.25;
-  }
-
-  .module-sub {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  .module-list {
-    padding: 16px 28px 24px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .module-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--rose-lt);
-    font-size: 14px;
-    color: var(--ink-lt);
-    line-height: 1.5;
-  }
-
-  .module-list li:last-child { border-bottom: none; }
-
-  .li-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--muted);
-    min-width: 28px;
-    margin-top: 2px;
-    letter-spacing: 0.05em;
-  }
-
-  .li-type {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    min-width: 52px;
-    margin-top: 3px;
-  }
-
-  .marco-row {
-    background: var(--rose-lt);
-    border-radius: 6px;
-    margin: 8px 0 4px;
-    padding: 12px 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 13px;
-    color: var(--rose-dk);
-    line-height: 1.5;
-  }
-
-  .marco-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  /* ── NEURO ── */
-  .neuro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 16px;
-  }
-
-  .neuro-card {
-    padding: 28px 24px;
-    background: white;
-    border-radius: 4px;
-    border-top: 3px solid var(--rose-mid);
-    position: relative;
-  }
-
-  .neuro-card.strong { border-top-color: var(--rose); }
-
-  .neuro-icon-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--rose-lt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 14px;
-    font-size: 20px;
-  }
-
-  .neuro-title {
-    font-family: var(--serif);
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .neuro-desc {
-    font-size: 13px;
-    color: var(--ink-lt);
-    line-height: 1.6;
-  }
-
-  /* ── ECOSYSTEM ── */
-  .ecosystem-track {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 48px;
-  }
-
-  .eco-step {
-    flex: 1;
-    padding: 36px 28px;
-    position: relative;
-  }
-
-  .eco-arrow {
-    width: 32px;
-    background: rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 18px;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .eco-step.e1 { background: var(--rose-lt); }
-  .eco-step.e2 { background: var(--rose-mid); }
-  .eco-step.e3 { background: var(--rose); }
-  .eco-step.e4 { background: var(--rose-dk); }
-
-  .eco-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .e1 .eco-label { color: var(--muted); }
-  .e2 .eco-label { color: var(--rose-dk); }
-  .e3 .eco-label, .e4 .eco-label { color: rgba(255,255,255,0.6); }
-
-  .eco-name {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    line-height: 1.2;
-  }
-
-  .e1 .eco-name { color: var(--rose-dk); }
-  .e2 .eco-name { color: var(--ink); }
-  .e3 .eco-name, .e4 .eco-name { color: white; }
-
-  .eco-price {
-    font-size: 13px;
-    font-weight: 700;
-  }
-
-  .e1 .eco-price { color: var(--muted); }
-  .e2 .eco-price { color: var(--ink-lt); }
-  .e3 .eco-price, .e4 .eco-price { color: rgba(255,255,255,0.8); }
-
-  .eco-desc {
-    font-size: 12px;
-    margin-top: 4px;
-  }
-
-  .e1 .eco-desc { color: var(--muted); }
-  .e2 .eco-desc { color: var(--ink-lt); }
-  .e3 .eco-desc, .e4 .eco-desc { color: rgba(255,255,255,0.6); }
-
-  /* ── FOOTER ── */
-  .foot {
-    background: var(--rose-dk);
-    padding: 72px 80px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .foot-title {
-    font-family: var(--serif);
-    font-size: 36px;
-    font-weight: 700;
-    color: white;
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-
-  .foot-title em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--rose-mid);
-  }
-
-  .foot-sub {
-    font-size: 16px;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.75;
-    max-width: 420px;
-  }
-
-  .foot-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: flex-end;
-  }
-
-  .foot-meta-item {
-    text-align: right;
-  }
-
-  .foot-meta-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 4px;
-  }
-
-  .foot-meta-val {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
-  }
-
-  .foot-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.1);
-    margin: 20px 0;
-    width: 100%;
-  }
-
-  .foot-credit {
-    font-size: 12px;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.08em;
-  }
-
-  /* ── PRINT-FRIENDLY ── */
-  @media print {
-    section { padding: 48px 48px; }
-    .cover { min-height: auto; page-break-after: always; }
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .cover-tag  { animation: fadeUp .6s ease both; }
-  .cover-pretitle { animation: fadeUp .6s .1s ease both; }
-  .cover-title { animation: fadeUp .6s .2s ease both; }
-  .cover-subtitle { animation: fadeUp .6s .3s ease both; }
-  .cover-meta { animation: fadeUp .6s .4s ease both; }
-  .stat-big { animation: fadeUp .6s .3s ease both; }
+:root {
+  --rose:    #C07B84;
+  --rose-dk: #8B4F58;
+  --rose-lt: #F5E8EA;
+  --rose-md: #E8C4C8;
+  --blush:   #FAF0F1;
+  --nude:    #F7EDE5;
+  --ink:     #1E1414;
+  --ink-lt:  #4A3035;
+  --muted:   #9A7C80;
+  --gold:    #C9A46A;
+  --cream:   #FFFAF8;
+  --serif:   'Playfair Display', Georgia, serif;
+  --sans:    'Lato', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:16px;line-height:1.7}
+
+/* ── COVER ── */
+.cover{min-height:100svh;display:grid;grid-template-columns:1fr 1fr}
+.cover-l{background:var(--rose-dk);padding:72px 56px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.cover-l::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(255,255,255,.08);top:-100px;left:-100px}
+.cover-l::after{content:'';position:absolute;width:240px;height:240px;border-radius:50%;border:1px solid rgba(255,255,255,.06);bottom:40px;right:-60px}
+.cover-r{background:var(--rose);display:flex;flex-direction:column;justify-content:center;padding:60px 48px;position:relative;overflow:hidden}
+.cover-r::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.04);top:-160px;right:-180px}
+
+.ctag{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:28px}
+.cpre{font-family:var(--serif);font-size:15px;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:10px}
+.ctitle{font-family:var(--serif);font-size:clamp(32px,4.5vw,54px);font-weight:700;color:#fff;line-height:1.08;margin-bottom:10px}
+.ctitle em{font-style:italic;font-weight:400;color:var(--rose-md)}
+.csub{font-family:var(--serif);font-size:17px;font-style:italic;color:rgba(255,255,255,.55);margin-bottom:0}
+.cmeta{font-size:12px;color:rgba(255,255,255,.38);letter-spacing:.04em}
+.cmeta strong{color:rgba(255,255,255,.65);font-weight:700}
+
+.stat-block{padding:24px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.stat-block:last-child{border-bottom:none}
+.stat-val{font-family:var(--serif);font-size:44px;font-weight:700;color:#fff;line-height:1;margin-bottom:5px}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
+
+/* ── SECTION BASICS ── */
+.sec{padding:80px 72px}
+.sec-alt{background:var(--blush)}
+.stag{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:14px}
+.stitle{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:8px}
+.stitle em{font-style:italic;font-weight:400;color:var(--rose)}
+.slead{font-size:16px;color:var(--ink-lt);max-width:620px;line-height:1.8;margin-bottom:48px}
+.hr{width:44px;height:3px;background:var(--rose);border-radius:2px;margin:18px 0 36px}
+
+/* ── PRICE HERO ── */
+.price-hero{background:var(--rose-dk);padding:72px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.price-big{font-family:var(--serif);font-size:clamp(56px,8vw,96px);font-weight:700;color:#fff;line-height:1;margin-bottom:10px}
+.price-tag{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px}
+.price-note{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;max-width:340px}
+.price-ab{display:inline-block;margin-top:16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:8px 16px;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.06em}
+
+.deliverable-list{display:flex;flex-direction:column;gap:14px}
+.dlv{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px}
+.dlv-dot{width:8px;height:8px;border-radius:50%;background:var(--rose-md);flex-shrink:0;margin-top:6px}
+.dlv-name{font-size:14px;color:#fff;font-weight:700;margin-bottom:2px}
+.dlv-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* ── JOURNEY ── */
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:4px;overflow:hidden;margin-bottom:56px}
+.jphase{padding:28px 24px}
+.jphase.j1{background:var(--rose-dk)}
+.jphase.j2{background:#AA6870}
+.jphase.j3{background:var(--rose)}
+.jphase.j4{background:var(--gold)}
+.jnum{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px}
+.jname{font-family:var(--serif);font-size:17px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2}
+.jdesc{font-size:12px;color:rgba(255,255,255,.65);line-height:1.55}
+
+/* ── MODULES ── */
+.mods-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mod{background:#fff;border-radius:4px;border:1px solid var(--rose-md);overflow:hidden}
+.mod.full{grid-column:1/-1}
+.mod-head{padding:20px 24px 16px;border-bottom:1px solid var(--rose-lt);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.mod-name{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink);line-height:1.25}
+.mod-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.mtag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.mt0{background:var(--nude);color:var(--ink-lt)}
+.mt1{background:var(--rose-lt);color:var(--rose-dk)}
+.mt2{background:#E8F3EB;color:#2D6B3C}
+.mt3{background:#FDF4E4;color:#7A5320}
+.mt4{background:#EEF3FD;color:#2B4A8A}
+.mtb{background:#EDE8F8;color:#4A3080}
+
+.mod-list{list-style:none;padding:12px 24px 20px;display:flex;flex-direction:column}
+.mod-list li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--rose-lt);font-size:13px;color:var(--ink-lt);line-height:1.5}
+.mod-list li:last-child{border-bottom:none}
+.li-n{font-size:11px;font-weight:700;color:var(--muted);min-width:28px;margin-top:2px;letter-spacing:.04em}
+.li-t{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;min-width:48px;margin-top:3px;text-align:right}
+
+.mod-list.two-col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+
+.marco{background:var(--rose-lt);border-radius:6px;margin:4px 0 8px;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--rose-dk);line-height:1.5}
+.marco-wrap{padding:0 20px 14px}
+.marco-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+
+/* ── NEURO ── */
+.neuro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ncrd{background:#fff;border-radius:4px;padding:26px 22px;border-top:3px solid var(--rose-md)}
+.ncrd.hi{border-top-color:var(--rose)}
+.nicn{width:40px;height:40px;border-radius:50%;background:var(--rose-lt);display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px}
+.ntit{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:7px;line-height:1.3}
+.ndesc{font-size:13px;color:var(--ink-lt);line-height:1.6}
+
+/* ── FUNNEL ── */
+.funnel{display:flex;align-items:stretch;border-radius:4px;overflow:hidden;margin-bottom:40px}
+.fstep{flex:1;padding:32px 24px}
+.fstep.f1{background:var(--rose-lt)}
+.fstep.f2{background:var(--rose-md)}
+.fstep.f3{background:var(--rose-dk);flex:1.35}
+.farr{width:28px;background:rgba(0,0,0,.07);display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(255,255,255,.45);flex-shrink:0}
+.flbl{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+.f1 .flbl{color:var(--muted)}
+.f2 .flbl{color:var(--rose-dk)}
+.f3 .flbl{color:rgba(255,255,255,.5)}
+.fname{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:5px;line-height:1.2}
+.f1 .fname{color:var(--rose-dk)}
+.f2 .fname{color:var(--ink)}
+.f3 .fname{color:#fff}
+.fprice{font-size:13px;font-weight:700}
+.f1 .fprice{color:var(--muted)}
+.f2 .fprice{color:var(--ink-lt)}
+.f3 .fprice{color:rgba(255,255,255,.85)}
+.fdesc{font-size:12px;margin-top:5px;line-height:1.6}
+.f1 .fdesc{color:var(--muted)}
+.f2 .fdesc{color:var(--ink-lt)}
+.f3 .fdesc{color:rgba(255,255,255,.55)}
+
+/* ── FOOTER ── */
+.foot{background:var(--rose-dk);padding:64px 72px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.ftitle{font-family:var(--serif);font-size:clamp(28px,3.5vw,40px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:14px}
+.ftitle em{font-style:italic;font-weight:400;color:var(--rose-md)}
+.fsub{font-size:15px;color:rgba(255,255,255,.5);line-height:1.8;max-width:400px}
+.fmeta{display:flex;flex-direction:column;gap:18px;align-items:flex-end}
+.fmi .fml{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px}
+.fmi .fmv{font-family:var(--serif);font-size:20px;font-weight:700;color:#fff}
+.fhr{height:1px;background:rgba(255,255,255,.1);margin:18px 0;width:100%}
+.fcredit{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.06em}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .cover{grid-template-columns:1fr;min-height:auto}
+  .cover-l{padding:52px 28px 40px}
+  .cover-r{padding:36px 28px 48px}
+  .sec{padding:56px 28px}
+  .price-hero{grid-template-columns:1fr;padding:52px 28px;gap:40px}
+  .journey{grid-template-columns:1fr 1fr}
+  .mods-grid{grid-template-columns:1fr}
+  .mod.full{grid-column:1}
+  .mod-list.two-col{grid-template-columns:1fr}
+  .neuro-grid{grid-template-columns:1fr 1fr}
+  .funnel{flex-direction:column}
+  .farr{width:100%;height:24px;writing-mode:horizontal-tb}
+  .foot{grid-template-columns:1fr;padding:52px 28px;gap:40px}
+  .fmeta{align-items:flex-start}
+}
+@media(max-width:480px){
+  .ctitle{font-size:30px}
+  .journey{grid-template-columns:1fr}
+  .neuro-grid{grid-template-columns:1fr}
+  .stat-val{font-size:36px}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.cover-l > *{animation:fadeUp .6s ease both}
+.ctag{animation-delay:.0s}.cpre{animation-delay:.1s}.ctitle{animation-delay:.2s}.csub{animation-delay:.3s}.cmeta{animation-delay:.4s}
+.cover-r > *{animation:fadeUp .6s .3s ease both}
 </style>
 </head>
 <body>
 
-<!-- ══ COVER ══ -->
+<!-- COVER -->
 <div class="cover">
-  <div class="cover-left">
+  <div class="cover-l">
     <div>
-      <div class="cover-tag">Proposta de Curso · Instituto Janeisa Narciso · 2026</div>
-      <div class="cover-pretitle">Produto principal de entrada —</div>
-      <h1 class="cover-title">
-        Primeiros Passos<br>
-        na <em>Modelagem</em><br>
-        e Costura Sob Medida
-      </h1>
-      <p class="cover-subtitle">Com esquadro físico. Um curso livre de fracasso.</p>
+      <div class="ctag">Proposta de Curso · Instituto Janeisa Narciso · 2026</div>
+      <div class="cpre">Produto principal mid-ticket —</div>
+      <h1 class="ctitle">Primeiros Passos<br>na <em>Modelagem</em><br>e Costura Sob Medida</h1>
+      <p class="csub">Com esquadro físico. Um curso livre de fracasso.</p>
     </div>
-    <div class="cover-meta">
-      <span>Preparado por <strong>Samuel Matias</strong> e <strong>João Vitor Leal</strong></span>
+    <div class="cmeta">
+      <span>Preparado por <strong>Samuel Matias</strong> e <strong>João Vitor Leal</strong></span><br>
       <span>Abril de 2026 · Proposta para Janeisa Narciso</span>
     </div>
   </div>
-
-  <div class="cover-right">
-    <!-- Deco circles -->
-    <div class="deco-circle" style="width:500px;height:500px;top:-120px;right:-160px;opacity:.08"></div>
-    <div class="deco-circle" style="width:300px;height:300px;bottom:-80px;left:-60px;opacity:.06"></div>
-    <div class="deco-circle" style="width:180px;height:180px;top:40%;right:40px;opacity:.08"></div>
-
-    <div class="cover-visual">
-      <div class="stat-big">
-        <div class="val">3</div>
-        <div class="lbl">Peças concluídas</div>
-      </div>
-      <div class="stat-big">
-        <div class="val">~6h</div>
-        <div class="lbl">Carga de conteúdo</div>
-      </div>
-      <div class="stat-big">
-        <div class="val">100%</div>
-        <div class="lbl">Prático e progressivo</div>
-      </div>
-      <div class="stat-big">
-        <div class="val">R$ 697</div>
-        <div class="lbl">Ticket inicial com esquadro</div>
-      </div>
-    </div>
+  <div class="cover-r">
+    <div class="stat-block"><div class="stat-val">5</div><div class="stat-lbl">Módulos completos</div></div>
+    <div class="stat-block"><div class="stat-val">20+</div><div class="stat-lbl">Peças ensinadas</div></div>
+    <div class="stat-block"><div class="stat-val">100%</div><div class="stat-lbl">Prático e progressivo</div></div>
+    <div class="stat-block"><div class="stat-val">0</div><div class="stat-lbl">Margem para fracasso</div></div>
   </div>
 </div>
 
+<!-- PRICE HERO -->
+<div class="price-hero">
+  <div>
+    <div class="price-tag">Investimento</div>
+    <div class="price-big">R$ 697</div>
+    <p class="price-note">Um único valor. Um entregável completo. A aluna recebe o esquadro MCF em casa antes de começar — e tudo o que precisa para costurar suas primeiras peças sob medida com resultado garantido.</p>
+    <div class="price-ab">Entregável único · sem variação de kit</div>
+  </div>
+  <div class="deliverable-list">
+    <div class="dlv"><div class="dlv-dot"></div><div><div class="dlv-name">Esquadro MCF enviado fisicamente</div><div class="dlv-sub">A ferramenta central do método chega na casa da aluna antes da primeira aula</div></div></div>
+    <div class="dlv"><div class="dlv-dot"></div><div><div class="dlv-name">Curso completo — 5 módulos + bônus</div><div class="dlv-sub">Do setup inicial até calças e shorts — todas as peças do guarda-roupa feminino básico</div></div></div>
+    <div class="dlv"><div class="dlv-dot"></div><div><div class="dlv-name">Acesso vitalício à plataforma</div><div class="dlv-sub">Assiste quantas vezes quiser, no ritmo dela</div></div></div>
+    <div class="dlv"><div class="dlv-dot"></div><div><div class="dlv-name">Comunidade no WhatsApp</div><div class="dlv-sub">Grupo de direcionamento com feedback e desafios</div></div></div>
+    <div class="dlv"><div class="dlv-dot"></div><div><div class="dlv-name">Certificado de conclusão</div><div class="dlv-sub">Emitido ao cumprir os 3 marcos do curso</div></div></div>
+    <div class="dlv"><div class="dlv-dot"></div><div><div class="dlv-name">Convite para a Escola MCF</div><div class="dlv-sub">Desconto especial na assinatura ao concluir</div></div></div>
+  </div>
+</div>
 
-<!-- ══ SEÇÃO 1: PROPOSTA ══ -->
-<section>
-  <div class="section-tag">A proposta</div>
-  <h2 class="section-title">Por que este curso <em>precisa existir</em></h2>
-  <div class="divider-rose"></div>
-  <p class="section-lead">
-    A maior razão de abandono nos cursos de costura não é falta de talento — é ausência de resultado rápido. A aluna compra, assiste as primeiras aulas, fica travada num detalhe técnico, perde o ânimo e some. O <strong>Primeiros Passos</strong> foi desenhado para eliminar esse ciclo: cada módulo termina com uma peça pronta nas mãos da aluna.
-  </p>
+<!-- PROPOSTA -->
+<section class="sec">
+  <div class="stag">A proposta</div>
+  <h2 class="stitle">Por que este curso <em>precisa existir</em></h2>
+  <div class="hr"></div>
+  <p class="slead">A maior razão de abandono nos cursos de costura não é falta de talento — é ausência de resultado rápido. A aluna compra, trava num detalhe técnico, perde o ânimo e some. O <strong>Primeiros Passos</strong> foi desenhado para eliminar esse ciclo: cada módulo termina com uma peça pronta nas mãos da aluna. E o esquadro que chegou em casa antes garante que ela nunca travar por falta de ferramenta.</p>
 
-  <div class="promise-grid">
-    <div class="promise-card">
-      <div class="promise-num">01</div>
-      <div class="promise-label">Resultado garantido</div>
-      <div class="promise-desc">A aluna sai com 3 peças reais feitas por ela mesma. Não com teoria — com roupa pronta, vestida no corpo dela.</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+    <div style="background:#fff;padding:36px 28px;border-top:3px solid var(--rose-md)">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--rose-md);line-height:1;margin-bottom:10px">01</div>
+      <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Resultado garantido</div>
+      <div style="font-size:14px;color:var(--ink-lt);line-height:1.65">A aluna sai com peças reais feitas por ela. Não teoria — roupa pronta, vestida no corpo dela.</div>
     </div>
-    <div class="promise-card highlight">
-      <div class="promise-num">02</div>
-      <div class="promise-label">Progressão calibrada</div>
-      <div class="promise-desc">Cada módulo começa onde o anterior terminou. Sem saltos. A complexidade sobe no ritmo exato em que a confiança cresce.</div>
+    <div style="background:#fff;padding:36px 28px;border-top:3px solid var(--rose)">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--rose);line-height:1;margin-bottom:10px">02</div>
+      <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Progressão calibrada</div>
+      <div style="font-size:14px;color:var(--ink-lt);line-height:1.65">Cada módulo começa onde o anterior terminou. A complexidade sobe no ritmo exato em que a confiança cresce.</div>
     </div>
-    <div class="promise-card">
-      <div class="promise-num">03</div>
-      <div class="promise-label">Porta de entrada</div>
-      <div class="promise-desc">Ao concluir, a aluna recebe convite com desconto para a Escola MCF (assinatura anual). Ela já conhece o método — a decisão é natural.</div>
+    <div style="background:#fff;padding:36px 28px;border-top:3px solid var(--rose-md)">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--rose-md);line-height:1;margin-bottom:10px">03</div>
+      <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Porta da Escola MCF</div>
+      <div style="font-size:14px;color:var(--ink-lt);line-height:1.65">Ao concluir, a aluna recebe convite para a Escola MCF. Ela já conhece o método e o resultado — a decisão é natural.</div>
     </div>
   </div>
 </section>
 
+<!-- JORNADA -->
+<section class="sec sec-alt">
+  <div class="stag">A jornada da aluna</div>
+  <h2 class="stitle">5 módulos. <em>Sem nenhuma travada.</em></h2>
+  <div class="hr"></div>
+  <p class="slead">A calça vem por último. Não é aleatório — é a peça mais temida pelas iniciantes. Ela só chega quando a aluna já tem confiança real construída nos módulos anteriores.</p>
 
-<!-- ══ SEÇÃO 2: JORNADA ══ -->
-<section>
-  <div class="section-tag">A jornada da aluna</div>
-  <h2 class="section-title">4 fases. <em>Sem nenhuma travada.</em></h2>
-  <div class="divider-rose"></div>
-  <p class="section-lead">A sequência não é aleatória. Blusa vem antes do vestido. Vestido vem antes da calça. A peça mais temida pelas iniciantes chega por último — quando a aluna já tem confiança real acumulada.</p>
-
-  <div class="journey-track">
-    <div class="journey-phase p1">
-      <div class="journey-num">Fase 0</div>
-      <div class="journey-name">Base de Tudo</div>
-      <div class="journey-desc">Medidas, tecidos, ferramentas, regulagem da máquina. A aluna prepara o terreno sem precisar produzir nada ainda.</div>
+  <div class="journey">
+    <div class="jphase j1">
+      <div class="jnum">Módulo 1</div>
+      <div class="jname">Boas-vindas e Setup</div>
+      <div class="jdesc">Ferramentas, esquadro, tabela de preços e comunidade. A aluna se prepara sem tocar na máquina ainda.</div>
     </div>
-    <div class="journey-phase p2">
-      <div class="journey-num">Fase 1</div>
-      <div class="journey-name">Primeira Conquista</div>
-      <div class="journey-desc">4 blusas em sequência crescente de dificuldade. A primeira peça pronta libera a dopamina que sustenta o restante do curso.</div>
+    <div class="jphase j2">
+      <div class="jnum">Módulo 2</div>
+      <div class="jname">Saias (3 modelos)</div>
+      <div class="jdesc">Primeira conquista real. Saia reta, evasê e nesgas godê — 3 peças com complexidade crescente.</div>
     </div>
-    <div class="journey-phase p3">
-      <div class="journey-num">Fase 2</div>
-      <div class="journey-name">Escala de Complexidade</div>
-      <div class="journey-desc">3 vestidos — tubinho, transpassado e godê 3 marias. A aluna aplica o que sabe e aprende ajustes de modelagem.</div>
+    <div class="jphase j3">
+      <div class="jnum">Módulo 3</div>
+      <div class="jname">Blusas (4 modelos)</div>
+      <div class="jdesc">Regata, manga, camisa e manga japonesa. A aluna aprende a base que serve para todas as variações futuras.</div>
     </div>
-    <div class="journey-phase p4">
-      <div class="journey-num">Fase 3</div>
-      <div class="journey-name">Domínio Completo</div>
-      <div class="journey-desc">2 calças + 1 short — a peça mais temida. Entregue quando a aluna já sabe que consegue. E consegue.</div>
+    <div class="jphase j4">
+      <div class="jnum">Módulos 4 e 5</div>
+      <div class="jname">Vestidos e Calças</div>
+      <div class="jdesc">Tubinho, transpassado, godê + calça social, wide leg e short. Entregues no pico da confiança.</div>
     </div>
   </div>
 </section>
 
-<!-- ══ SEÇÃO 3: GRADE ══ -->
-<section>
-  <div class="section-tag">Grade completa</div>
-  <h2 class="section-title">Cada aula tem <em>propósito claro.</em></h2>
-  <div class="divider-rose"></div>
-  <p class="section-lead">Nenhuma aula ultrapassa 15 minutos. Cada módulo termina com um marco visual — a aluna produz, fotografa e compartilha. Isso reforça o aprendizado, cria prova social e mantém o engajamento alto até o fim.</p>
+<!-- GRADE -->
+<section class="sec">
+  <div class="stag">Grade completa</div>
+  <h2 class="stitle">Cada aula tem <em>propósito claro.</em></h2>
+  <div class="hr"></div>
+  <p class="slead">Nenhuma aula ultrapassa 15 minutos. Cada módulo termina com um marco — a aluna produz, fotografa e compartilha. Isso reforça o aprendizado e gera prova social orgânica.</p>
 
-  <div class="modules-grid">
+  <div class="mods-grid">
 
-    <!-- Módulo 0 -->
-    <div class="module-card">
-      <div class="module-header">
-        <div>
-          <div class="module-name">Módulo 0 — Base de Tudo</div>
-          <div class="module-sub">Preparação mental e técnica antes de tocar na máquina</div>
-        </div>
-        <span class="module-tag base">Base</span>
+    <!-- M1 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div><div class="mod-name">Módulo 1 — Começo Aqui</div><div class="mod-sub">Boas-vindas, setup e ferramentas — antes de tocar na máquina</div></div>
+        <span class="mtag mt0">Setup</span>
       </div>
-      <ul class="module-list">
-        <li><span class="li-num">0.1</span><span>Por que o método MCF funciona quando os outros travam</span><span class="li-type">aula</span></li>
-        <li><span class="li-num">0.2</span><span>Tiragem de medidas do corpo — filmado passo a passo</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">0.3</span><span>Quantidade de tecido e como escolher o melhor para cada peça</span><span class="li-type">aula</span></li>
-        <li><span class="li-num">0.4</span><span>Ferramentas mínimas: o que precisa e o que é opcional</span><span class="li-type">guia</span></li>
-        <li><span class="li-num">0.5</span><span>Regulagem da máquina de costura (menos de 8 minutos)</span><span class="li-type">prático</span></li>
+      <ul class="mod-list">
+        <li><span class="li-n">1.1</span><span>Boas-vindas — método MCF e o que vem pela frente</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">1.2</span><span>Peças que você vai fazer neste curso</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">1.3</span><span>Comunidade — como usar o WhatsApp de direcionamento</span><span class="li-t">guia</span></li>
+        <li><span class="li-n">1.4</span><span>Materiais necessários — o que precisa e o que é opcional</span><span class="li-t">guia</span></li>
+        <li><span class="li-n">1.5</span><span>Tabela de preços por aula — aprenda a precificar seu trabalho</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">1.6</span><span>Conhecendo o esquadro MCF — partes, função e cuidados</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">1.7</span><span>Tipos de acabamentos — visão geral do que você vai dominar</span><span class="li-t">aula</span></li>
       </ul>
     </div>
 
-    <!-- Módulo 1 -->
-    <div class="module-card">
-      <div class="module-header">
-        <div>
-          <div class="module-name">Módulo 1 — Blusas (4 peças)</div>
-          <div class="module-sub">Primeira conquista real. A aluna sai com roupa vestida no corpo.</div>
-        </div>
-        <span class="module-tag fase1">Fase 1</span>
+    <!-- M2 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div><div class="mod-name">Módulo 2 — Saias (3 peças)</div><div class="mod-sub">Primeira conquista real. Complexidade crescente do primeiro ao terceiro modelo.</div></div>
+        <span class="mtag mt1">Fase 1</span>
       </div>
-      <ul class="module-list">
-        <li><span class="li-num">1.1</span><span>Modelagem da blusa básica com manga — traçado completo</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.2</span><span>Corte e costura da blusa com manga</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.3</span><span>Camisa / camisete — criação e variação</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.4</span><span>Corte e costura da camisa / camisete</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.5</span><span>Blusa com alça — modelagem e variação 2</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.6</span><span>Corte e costura da blusa com alça</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.7</span><span>Blusa manga japonesa — modelagem e variação 3</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">1.8</span><span>Corte e costura da blusa manga japonesa</span><span class="li-type">prático</span></li>
+      <ul class="mod-list">
+        <li><span class="li-n">2.1</span><span>Tiragem de medidas no corpo / cliente</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.2</span><span>Melhores tecidos e quantidades para saias</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">2.3</span><span>Modelagem básica da saia</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.4</span><span>Criação da saia reta / secretária</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.5</span><span>Costura e corte da saia reta</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.6</span><span>Criação da saia evasê</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.7</span><span>Corte e costura da saia evasê</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.8</span><span>Criação da saia de nesgas godê</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">2.9</span><span>Corte e costura da saia com nesgas godê</span><span class="li-t">prático</span></li>
       </ul>
-      <div style="padding: 0 20px 16px">
-        <div class="marco-row">
-          <span class="marco-icon">★</span>
-          <span><strong>Marco 1:</strong> "Minha 1ª Blusa Pronta" — foto no grupo + feedback da Janeisa</span>
-        </div>
+      <div class="marco-wrap">
+        <div class="marco"><span class="marco-icon">★</span><span><strong>Marco 1:</strong> "Minha 1ª Saia Pronta" — foto no grupo + feedback da Janeisa</span></div>
       </div>
     </div>
 
-    <!-- Módulo 2 -->
-    <div class="module-card">
-      <div class="module-header">
-        <div>
-          <div class="module-name">Módulo 2 — Vestidos (3 peças)</div>
-          <div class="module-sub">Escala natural. A aluna chega aqui com confiança consolidada.</div>
-        </div>
-        <span class="module-tag fase2">Fase 2</span>
+    <!-- M3 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div><div class="mod-name">Módulo 3 — Blusas (4 peças)</div><div class="mod-sub">Base universal de blusas. A aluna aprende o traçado que serve para todas as variações.</div></div>
+        <span class="mtag mt2">Fase 2</span>
       </div>
-      <ul class="module-list">
-        <li><span class="li-num">2.1</span><span>Modelagem básica do vestido — base universal</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">2.2</span><span>Ajustes de modelagem — as 5 situações mais comuns</span><span class="li-type">aula</span></li>
-        <li><span class="li-num">2.3</span><span>Vestido tubinho — criação, corte e costura</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">2.4</span><span>Vestido transpassado — criação, corte e costura</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">2.5</span><span>Vestido godê 3 marias — criação, corte e costura</span><span class="li-type">prático</span></li>
+      <ul class="mod-list">
+        <li><span class="li-n">3.1</span><span>Tiragem de medidas corpo / cliente</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.2</span><span>Melhores tecidos e quantidades para blusas</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">3.3</span><span>Modelagem básica da blusa (e seus ajustes)</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.4</span><span>Ajustes no básico (caso necessário)</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">3.5</span><span>Criação de blusa regata</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.6</span><span>Corte e costura da regata</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.7</span><span>Criação de blusa com manga</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.8</span><span>Corte e costura da blusa com manga</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.9</span><span>Criação da camisa / camisete</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.10</span><span>Corte e costura da camisa / camisete</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">3.11</span><span>Blusa manga japonesa — criação, corte e costura</span><span class="li-t">prático</span></li>
       </ul>
-      <div style="padding: 0 20px 16px">
-        <div class="marco-row">
-          <span class="marco-icon">★</span>
-          <span><strong>Marco 2:</strong> "Veste meu corpo" — foto usando o vestido + autoavaliação de ajuste</span>
-        </div>
+      <div class="marco-wrap">
+        <div class="marco"><span class="marco-icon">★</span><span><strong>Marco 2:</strong> "Minha 1ª Blusa Pronta" — foto usando a peça + autoavaliação de ajuste</span></div>
       </div>
     </div>
 
-    <!-- Módulo 3 -->
-    <div class="module-card">
-      <div class="module-header">
-        <div>
-          <div class="module-name">Módulo 3 — Calças e Short (3 peças)</div>
-          <div class="module-sub">A peça mais temida — entregue quando a aluna já sabe que consegue.</div>
-        </div>
-        <span class="module-tag fase3">Fase 3</span>
+    <!-- M4 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div><div class="mod-name">Módulo 4 — Vestidos (3 peças)</div><div class="mod-sub">Escala de complexidade. A aluna chega aqui com confiança real consolidada.</div></div>
+        <span class="mtag mt3">Fase 3</span>
       </div>
-      <ul class="module-list">
-        <li><span class="li-num">3.1</span><span>Modelagem básica da calça — traçado completo</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">3.2</span><span>Calça social clássica — criação, corte e costura</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">3.3</span><span>Calça wide leg — criação, corte e costura</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">3.4</span><span>Modelagem do short social — corte e costura</span><span class="li-type">prático</span></li>
+      <ul class="mod-list">
+        <li><span class="li-n">4.1</span><span>Modelagem básica do vestido — base universal</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">4.2</span><span>Ajustes de modelagem — as 5 situações mais comuns</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">4.3</span><span>Vestido tubinho — criação, corte e costura</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">4.4</span><span>Vestido transpassado — criação, corte e costura</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">4.5</span><span>Vestido godê 3 marias — criação, corte e costura</span><span class="li-t">prático</span></li>
       </ul>
-      <div style="padding: 0 20px 16px">
-        <div class="marco-row">
-          <span class="marco-icon">★</span>
-          <span><strong>Marco Final:</strong> "Meu primeiro guarda-roupa sob medida" — certificado + convite para a Escola MCF com desconto</span>
-        </div>
+    </div>
+
+    <!-- M5 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div><div class="mod-name">Módulo 5 — Calças e Short (3 peças)</div><div class="mod-sub">A peça mais temida — entregue quando a aluna já sabe que consegue.</div></div>
+        <span class="mtag mt4">Fase 4</span>
+      </div>
+      <ul class="mod-list">
+        <li><span class="li-n">5.1</span><span>Tiragem de medidas e melhores tecidos para calças</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">5.2</span><span>Modelagem básica da calça — traçado completo</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">5.3</span><span>Calça social clássica — criação, corte e costura</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">5.4</span><span>Calça wide leg — criação, corte e costura</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">5.5</span><span>Modelagem do short social — corte e costura</span><span class="li-t">prático</span></li>
+      </ul>
+      <div class="marco-wrap">
+        <div class="marco"><span class="marco-icon">★</span><span><strong>Marco Final:</strong> "Meu guarda-roupa sob medida" — certificado + convite para a Escola MCF com desconto</span></div>
       </div>
     </div>
 
-    <!-- Bônus -->
-    <div class="module-card" style="grid-column: 1 / -1">
-      <div class="module-header">
-        <div>
-          <div class="module-name">Bônus — Módulo de Expansão (liberado ao concluir as 3 fases)</div>
-          <div class="module-sub">Preview do que a aluna vai encontrar na Escola MCF. Desperta o desejo do próximo passo.</div>
-        </div>
-        <span class="module-tag bonus">Bônus</span>
+    <!-- BONUS -->
+    <div class="mod full">
+      <div class="mod-head">
+        <div><div class="mod-name">Bônus — Módulo de Expansão</div><div class="mod-sub">Liberado ao concluir os 5 módulos. Preview do que a aluna vai encontrar na Escola MCF.</div></div>
+        <span class="mtag mtb">Bônus</span>
       </div>
-      <ul class="module-list" style="display: grid; grid-template-columns: 1fr 1fr;">
-        <li><span class="li-num">B1</span><span>Modelagem plus size — adaptação do método MCF</span><span class="li-type">aula</span></li>
-        <li><span class="li-num">B2</span><span>Ajuste em jeans — as 3 alterações mais pedidas</span><span class="li-type">prático</span></li>
-        <li><span class="li-num">B3</span><span>Modelagem em malha — as diferenças que mudam tudo</span><span class="li-type">aula</span></li>
-        <li><span class="li-num">B4</span><span>Colete forrado — técnica completa de forração</span><span class="li-type">prático</span></li>
+      <ul class="mod-list two-col">
+        <li><span class="li-n">B1</span><span>Modelagem plus size — adaptação do método MCF</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">B2</span><span>Ajuste em jeans — as 3 alterações mais pedidas</span><span class="li-t">prático</span></li>
+        <li><span class="li-n">B3</span><span>Modelagem em malha — diferenças que mudam tudo</span><span class="li-t">aula</span></li>
+        <li><span class="li-n">B4</span><span>Colete forrado — técnica completa de forração</span><span class="li-t">prático</span></li>
       </ul>
     </div>
 
   </div>
 </section>
 
-
-<!-- ══ SEÇÃO 4: NEUROCIÊNCIA ══ -->
-<section>
-  <div class="section-tag">Por que funciona — neurociência de aprendizado</div>
-  <h2 class="section-title">Desenhado para <em>não deixar ninguém para trás.</em></h2>
-  <div class="divider-rose"></div>
-  <p class="section-lead">Cada detalhe da estrutura tem razão científica. Não é marketing — é a aplicação dos princípios de neurociência cognitiva ao ensino de costura. O resultado é uma taxa de conclusão muito acima da média do mercado de infoprodutos (que é de 7-10%).</p>
+<!-- NEURO -->
+<section class="sec sec-alt">
+  <div class="stag">Por que funciona — neurociência de aprendizado</div>
+  <h2 class="stitle">Desenhado para <em>não deixar ninguém para trás.</em></h2>
+  <div class="hr"></div>
+  <p class="slead">Cada detalhe estrutural tem razão científica. O resultado é uma taxa de conclusão muito acima da média do mercado de infoprodutos (que é de 7–10%).</p>
 
   <div class="neuro-grid">
-
-    <div class="neuro-card strong">
-      <div class="neuro-icon-wrap">🧠</div>
-      <div class="neuro-title">Progressão de competência</div>
-      <div class="neuro-desc">Cada módulo começa onde o anterior terminou. Desafio calibrado à habilidade atual — estado de flow de Csikszentmihalyi. A aluna nunca sente que está aquém nem além.</div>
-    </div>
-
-    <div class="neuro-card">
-      <div class="neuro-icon-wrap">⭐</div>
-      <div class="neuro-title">Marcos de celebração</div>
-      <div class="neuro-desc">3 marcos com resultado físico concreto. Libera dopamina no momento certo e reforça o loop de retorno à plataforma. A aluna que postou a blusa pronta raramente abandona.</div>
-    </div>
-
-    <div class="neuro-card">
-      <div class="neuro-icon-wrap">⏱</div>
-      <div class="neuro-title">Micro-aulas de 15 min</div>
-      <div class="neuro-desc">Nenhuma aula passa de 15 minutos — pico de atenção sustentada comprovado em pesquisa de retenção. Cada aula é um micro-hábito completo, não um trecho de algo maior.</div>
-    </div>
-
-    <div class="neuro-card strong">
-      <div class="neuro-icon-wrap">✋</div>
-      <div class="neuro-title">Prática antes da teoria</div>
-      <div class="neuro-desc">A aluna pega no tecido antes de ouvir a explicação técnica. O "efeito desejoso de aprender" garante 40% mais retenção do que o modelo teórico → prático convencional.</div>
-    </div>
-
-    <div class="neuro-card">
-      <div class="neuro-icon-wrap">👥</div>
-      <div class="neuro-title">Grupo de prática ativa</div>
-      <div class="neuro-desc">Desafios semanais, fotos obrigatórias, feedback rápido. Aprendizado social aumenta taxa de conclusão em até 3× comparado ao estudo solo sem comunidade.</div>
-    </div>
-
-    <div class="neuro-card">
-      <div class="neuro-icon-wrap">🎁</div>
-      <div class="neuro-title">Bônus como recompensa variável</div>
-      <div class="neuro-desc">Liberado só ao concluir as 3 fases. Princípio de recompensa variável: a aluna não sabe exatamente o que vai encontrar — mantém engajamento alto até o último módulo.</div>
-    </div>
-
-    <div class="neuro-card">
-      <div class="neuro-icon-wrap">🔍</div>
-      <div class="neuro-title">Autoavaliação guiada</div>
-      <div class="neuro-desc">Quiz após cada marco: "sua gola ficou torta? reveja a aula 1.2". Retrieval-based learning — a aluna identifica e corrige sozinha, sem depender da professora para cada dúvida.</div>
-    </div>
-
-    <div class="neuro-card strong">
-      <div class="neuro-icon-wrap">↑</div>
-      <div class="neuro-title">Upsell no melhor momento</div>
-      <div class="neuro-desc">O convite para a Escola MCF chega no exato instante em que a aluna segura 3 peças que ela fez com o esquadro dela. Dentro da Escola: Interpretação Sem Segredo, Infantil, Masculino e tudo que vier depois. A decisão é natural.</div>
-    </div>
-
+    <div class="ncrd hi"><div class="nicn">🧠</div><div class="ntit">Progressão de competência</div><div class="ndesc">Desafio calibrado à habilidade atual — estado de flow. A aluna nunca sente que está aquém nem além do que consegue.</div></div>
+    <div class="ncrd"><div class="nicn">★</div><div class="ntit">Marcos de celebração</div><div class="ndesc">3 marcos com resultado físico concreto. Libera dopamina no momento certo e reforça o loop de retorno à plataforma.</div></div>
+    <div class="ncrd"><div class="nicn">⏱</div><div class="ntit">Micro-aulas de 15 min</div><div class="ndesc">Pico de atenção sustentada comprovado em pesquisa de retenção. Cada aula é um micro-hábito completo.</div></div>
+    <div class="ncrd hi"><div class="nicn">✋</div><div class="ntit">Prática antes da teoria</div><div class="ndesc">A aluna pega no tecido antes da explicação técnica. Garante 40% mais retenção do que o modelo convencional.</div></div>
+    <div class="ncrd"><div class="nicn">👥</div><div class="ntit">Comunidade ativa</div><div class="ndesc">WhatsApp com desafios e feedback rápido. Aprendizado social aumenta conclusão em até 3× vs. estudo solo.</div></div>
+    <div class="ncrd"><div class="nicn">🎁</div><div class="ntit">Bônus como recompensa variável</div><div class="ndesc">Liberado só ao concluir. A aluna não sabe exatamente o que vai encontrar — mantém engajamento alto até o fim.</div></div>
+    <div class="ncrd"><div class="nicn">🔍</div><div class="ntit">Autoavaliação guiada</div><div class="ndesc">Quiz após cada marco. A aluna identifica e corrige sozinha — retrieval-based learning sem depender da professora.</div></div>
+    <div class="ncrd hi"><div class="nicn">↑</div><div class="ntit">Upsell no pico de confiança</div><div class="ndesc">O convite para a Escola MCF chega quando a aluna segura as peças que ela fez. A decisão é óbvia.</div></div>
   </div>
 </section>
 
+<!-- FUNIL -->
+<section class="sec">
+  <div class="stag">Posição no ecossistema MCF</div>
+  <h2 class="stitle">A porta de entrada <em>para tudo.</em></h2>
+  <div class="hr"></div>
+  <p class="slead">O Primeiros Passos é o salto de quem já experimentou um low-ticket e quer ir mais fundo. Dentro da Escola MCF estão a Formação completa, Interpretação Sem Segredo, Infantil, Masculino e todo o conteúdo futuro.</p>
 
-<!-- ══ SEÇÃO 5: ECOSSISTEMA ══ -->
-<section>
-  <div class="section-tag">Posição no ecossistema MCF</div>
-  <h2 class="section-title">A porta de entrada <em>para tudo.</em></h2>
-  <div class="divider-rose"></div>
-  <p class="section-lead">O Primeiros Passos não é um curso de entrada barata — é um produto de transformação real (R$ 297–697), com esquadro físico enviado para a aluna. Ele representa o salto natural de quem já experimentou um produto low-ticket e quer ir mais fundo. Quem chega aqui e ascende à Escola MCF representa o maior LTV do ecossistema.</p>
-
-  <div class="ecosystem-track">
-    <div class="eco-step e1">
-      <div class="eco-label">Low-ticket · Entrada</div>
-      <div class="eco-name">Minha 1ª Peça + Cursos Avulsos</div>
-      <div class="eco-price">R$ 37–97</div>
-      <div class="eco-desc">1º Vestido Fácil · Curso de Blusas · 1ª Peça Sob Medida · peças únicas · sem compromisso</div>
+  <div class="funnel">
+    <div class="fstep f1">
+      <div class="flbl">Low-ticket · Entrada</div>
+      <div class="fname">Cursos Avulsos</div>
+      <div class="fprice">R$ 37–97</div>
+      <div class="fdesc">Minha 1ª Peça · 1º Vestido Fácil · Curso de Blusas · peças únicas · sem compromisso</div>
     </div>
-    <div class="eco-arrow">→</div>
-    <div class="eco-step e2">
-      <div class="eco-label">Mid-ticket · Este curso</div>
-      <div class="eco-name">Primeiros Passos MCF</div>
-      <div class="eco-price">R$ 297 – R$ 697</div>
-      <div class="eco-desc">3 peças · esquadro enviado · método completo · certificado — entregável único, preço em teste A/B</div>
+    <div class="farr">→</div>
+    <div class="fstep f2">
+      <div class="flbl">Mid-ticket · Este curso</div>
+      <div class="fname">Primeiros Passos MCF</div>
+      <div class="fprice">R$ 697</div>
+      <div class="fdesc">5 módulos · 20+ peças · esquadro físico · comunidade · certificado</div>
     </div>
-    <div class="eco-arrow">→</div>
-    <div class="eco-step e3" style="flex: 1.4;">
-      <div class="eco-label">Escola · Assinatura anual</div>
-      <div class="eco-name">Escola MCF</div>
-      <div class="eco-price">R$ 997/ano (mínimo)</div>
-      <div class="eco-desc">Formação completa · Interpretação · Infantil · Masculino · Blusas · Acabamentos · todo conteúdo futuro · comunidade</div>
+    <div class="farr">→</div>
+    <div class="fstep f3">
+      <div class="flbl">Escola · Assinatura anual</div>
+      <div class="fname">Escola MCF</div>
+      <div class="fprice">R$ 997/ano (mínimo)</div>
+      <div class="fdesc">Formação completa · Interpretação · Infantil · Masculino · Blusas · todo conteúdo futuro · comunidade exclusiva · lives mensais</div>
     </div>
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;">
-    <div style="background: white; padding: 24px; text-align: center; border-top: 3px solid var(--rose-lt)">
-      <div style="font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--rose-dk); margin-bottom: 6px">Seguidora</div>
-      <div style="font-size: 13px; color: var(--muted)">Redes sociais</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+    <div style="background:#fff;padding:22px;text-align:center;border-top:3px solid var(--rose-lt)">
+      <div style="font-family:var(--serif);font-size:22px;font-weight:700;color:var(--rose-dk);margin-bottom:5px">Seguidora</div>
+      <div style="font-size:12px;color:var(--muted)">Redes sociais</div>
     </div>
-    <div style="background: white; padding: 24px; text-align: center; border-top: 3px solid var(--rose-mid)">
-      <div style="font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--rose-dk); margin-bottom: 6px">Iniciante</div>
-      <div style="font-size: 13px; color: var(--muted)">Cursos avulsos · R$ 37–97</div>
+    <div style="background:#fff;padding:22px;text-align:center;border-top:3px solid var(--rose-md)">
+      <div style="font-family:var(--serif);font-size:22px;font-weight:700;color:var(--rose-dk);margin-bottom:5px">Iniciante</div>
+      <div style="font-size:12px;color:var(--muted)">Cursos avulsos · R$ 37–97</div>
     </div>
-    <div style="background: white; padding: 24px; text-align: center; border-top: 3px solid var(--rose)">
-      <div style="font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--rose-dk); margin-bottom: 6px">Praticante</div>
-      <div style="font-size: 13px; color: var(--muted)">Primeiros Passos · R$ 297–697</div>
+    <div style="background:#fff;padding:22px;text-align:center;border-top:3px solid var(--rose)">
+      <div style="font-family:var(--serif);font-size:22px;font-weight:700;color:var(--rose-dk);margin-bottom:5px">Praticante</div>
+      <div style="font-size:12px;color:var(--muted)">Primeiros Passos · R$ 697</div>
     </div>
-    <div style="background: white; padding: 24px; text-align: center; border-top: 3px solid var(--rose-dk)">
-      <div style="font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--rose-dk); margin-bottom: 6px">Escola MCF</div>
-      <div style="font-size: 13px; color: var(--muted)">Tudo incluído · R$ 997/ano</div>
+    <div style="background:#fff;padding:22px;text-align:center;border-top:3px solid var(--rose-dk)">
+      <div style="font-family:var(--serif);font-size:22px;font-weight:700;color:var(--rose-dk);margin-bottom:5px">Escola MCF</div>
+      <div style="font-size:12px;color:var(--muted)">Tudo incluído · R$ 997/ano</div>
     </div>
   </div>
 </section>
 
-
-<!-- ══ FOOTER ══ -->
+<!-- FOOTER -->
 <footer class="foot">
   <div>
-    <div class="foot-title">
-      Um curso. <em>Três peças.</em><br>
-      Uma aluna para sempre.
-    </div>
-    <p class="foot-sub">
-      O Primeiros Passos foi desenhado para que nenhuma aluna chegue ao final sem resultado. Quando ela conclui, não é o curso que acabou — é a jornada na Escola MCF que começa.
-    </p>
-    <div class="foot-divider"></div>
-    <div class="foot-credit">Proposta elaborada por Samuel Matias e João Vitor Leal · Abril 2026 · Instituto Janeisa Narciso</div>
+    <div class="ftitle">Um curso. <em>Várias peças.</em><br>Uma aluna para sempre.</div>
+    <p class="fsub">O Primeiros Passos foi desenhado para que nenhuma aluna chegue ao final sem resultado. Quando ela conclui, não é o curso que acabou — é a jornada na Escola MCF que começa.</p>
+    <div class="fhr"></div>
+    <div class="fcredit">Proposta elaborada por Samuel Matias e João Vitor Leal · Abril 2026 · Instituto Janeisa Narciso</div>
   </div>
-
-  <div class="foot-meta">
-    <div class="foot-meta-item">
-      <div class="foot-meta-label">Peças entregues</div>
-      <div class="foot-meta-val">3 peças reais</div>
-    </div>
-    <div class="foot-meta-item">
-      <div class="foot-meta-label">Carga de conteúdo</div>
-      <div class="foot-meta-val">~6 horas</div>
-    </div>
-    <div class="foot-meta-item">
-      <div class="foot-meta-label">Ticket sugerido</div>
-      <div class="foot-meta-val">R$ 297 – R$ 697</div>
-    </div>
-    <div class="foot-meta-item">
-      <div class="foot-meta-label">Posição no funil</div>
-      <div class="foot-meta-val">Entrada (low-ticket)</div>
-    </div>
+  <div class="fmeta">
+    <div class="fmi"><div class="fml">Módulos</div><div class="fmv">5 módulos + bônus</div></div>
+    <div class="fmi"><div class="fml">Peças ensinadas</div><div class="fmv">20+ peças</div></div>
+    <div class="fmi"><div class="fml">Investimento</div><div class="fmv">R$ 697</div></div>
+    <div class="fmi"><div class="fml">Diferencial físico</div><div class="fmv">Esquadro MCF</div></div>
+    <div class="fmi"><div class="fml">Próximo passo</div><div class="fmv">Escola MCF</div></div>
   </div>
 </footer>
 
